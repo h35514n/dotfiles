@@ -4,8 +4,6 @@
 # rubocop:disable Layout/EmptyLinesAroundBlockBody
 require_relative "../lib/bootstrap"
 
-ensure_xcode_is_set_up
-
 setup :xdg_base_directory_environment do
   install_launchagent "com.tensorconclave.xdg"
   install_system_zshenv
