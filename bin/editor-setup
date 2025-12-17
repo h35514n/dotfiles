@@ -62,7 +62,7 @@ setup_python() {
       --upgrade \
       pip \
       $(cat "${XDG_CONFIG_HOME}/mise/default-libraries-python" | tr '\n' ' ')
-  python -m pip install --upgrade ruff
+  python -m pip install --upgrade ruff pyxdg openai
 }
 
 setup_emacs_plus() {
