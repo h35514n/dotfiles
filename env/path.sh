@@ -46,7 +46,7 @@ PATH+=":/snap/bin"
 
 export PATH
 
-if [[ -d "${HOMEBREW_PREFIX}" ]]; then
+if [[ -d "${HOMEBREW_PREFIX}/opt" ]]; then
   for mandir in ${HOMEBREW_PREFIX}/opt/*/libexec/gnuman; do
     export MANPATH="$mandir:$MANPATH"
   done

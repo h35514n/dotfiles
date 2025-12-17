@@ -75,9 +75,16 @@ end
 def machine_is?(machine_type)
   arch = `uname -ps`
   case machine_type
-  when :apple then arch.match?(/^Darwin/)
+  when :apple then arch.match?(/^Darwin arm/)
+  when :intel then arch.match?(/^Darwin i386/)
   when :linux then arch.match?(/^Linux/)
   end
+end
+
+def homebrew_prefix
+  return "/opt/homebrew" if machine_is?(:apple)
+  return "/usr/local" if machine_is?(:intel)
+  return "/home/linuxbrew/.linuxbrew" if machine_is?(:linux)
 end
 
 # Xcode-related
@@ -224,9 +231,9 @@ def setup_emacs_plus(version: 30)
     brew_tap "d12frosted/emacs-plus"
     yield
     execho <<~SH
-      rm -rf '/Applications/Emacs.app' '/Applications/Emacs Client.app'
-      osascript -e 'tell application "Finder" to make alias file to posix file "/opt/homebrew/opt/emacs-plus@#{version}/Emacs.app" at posix file "/Applications" with properties {name:"Emacs.app"}'
-      osascript -e 'tell application "Finder" to make alias file to posix file "/opt/homebrew/opt/emacs-plus@#{version}/Emacs Client.app" at posix file "/Applications" with properties {name:"Emacs Client.app"}'
+      \rm -rf '/Applications/Emacs.app' '/Applications/Emacs Client.app'
+      osascript -e 'tell application "Finder" to make alias file to posix file "#{HOMEBREW_PREFIX}/opt/emacs-plus@#{version}/Emacs.app" at posix file "/Applications" with properties {name:"Emacs.app"}'
+      osascript -e 'tell application "Finder" to make alias file to posix file "#{HOMEBREW_PREFIX}/opt/emacs-plus@#{version}/Emacs Client.app" at posix file "/Applications" with properties {name:"Emacs Client.app"}'
     SH
   end
 end
@@ -338,7 +345,7 @@ end
 # ---------
 
 DOTFILES_DIR = File.dirname(File.dirname(__FILE__))
-HOMEBREW_PREFIX = '/opt/homebrew'
+HOMEBREW_PREFIX = homebrew_prefix
 ENV["DOTFILES_DIR"] = DOTFILES_DIR
 
 ENVIRONMENT =

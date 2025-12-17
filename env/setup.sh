@@ -46,9 +46,9 @@ source "${DOTFILES_DIR}/env/xdg.apps.sh"
 # Environment setup
 # -----------------------------
 
-if [[ "${MACHINE}" == "apple" ]]; then
+if [[ "${MACHINE}" == "apple" ]] || [[ "${MACHINE}" == "intel-mac" ]]; then
   source "${DOTFILES_DIR}/env/build.sh"
-else
+elif [[ "${MACHINE}" == "linux" ]]; then
   export LDFLAGS="-L/home/linuxbrew/.linuxbrew/lib"
   export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/include"
   export LD_LIBRARY_PATH="/home/linuxbrew/.linuxbrew/lib"
