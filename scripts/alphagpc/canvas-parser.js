@@ -57,8 +57,20 @@ function parseDueDate(itemEl) {
 }
 
 function formatTitle(itemEl) {
-  const title = firstLine(queryText(SELECTORS.TITLE, itemEl));
-  return title.replace(/ Assignment$/, "");
+    const title = firstLine(queryText(SELECTORS.TITLE, itemEl));
+    return title.replace(/ Assignment$/, "")
+           .replace(/^Homework: /, "")
+           .replace(/^Simulation Lab: /, "Sim Lab: ")
+           .replace(/^Virtual Machine Lab: /, "VM Lab: ")
+           .replace(/^Discussion Thread: /, "DT: ")
+           .replace(/^Discussion Replies: /, "DR: ")
+           .replace(/^Research Paper: /, "Paper: ");
+}
+
+function getPath(itemEl) {
+    console.log(itemEl);
+    console.log(itemEl.querySelector('a.ig-title'));
+    return itemEl.querySelector('a.ig-title').href;
 }
 
 function getAssignments() {
@@ -68,11 +80,13 @@ function getAssignments() {
   return modules.flatMap((moduleEl) => {
     const week = getWeekNumber(moduleEl);
     const items = querySelectorAllAsArray(SELECTORS.ITEM, moduleEl);
-    const entries = items.map((el) => [parseDueDate(el), formatTitle(el)]);
+    const entries = items.map((el) => [parseDueDate(el), formatTitle(el), getPath(el)]);
 
-    return entries.map(([due, title], _, all) => {
+    return entries.map(([due, title, path], _, all) => {
       const fallbackDate = all.map(([d]) => d).find((d) => d) || "";
-      return `${courseCode}\t${week}\t\t${due || fallbackDate}\t\t${title}`;
+      const href = path.startsWith("http") ? path : `https://canvas.liberty.edu${path}`;
+      const description = `=HYPERLINK("${href}", "${title}")`;
+      return `${courseCode}\t${week}\t\t${due || fallbackDate}\t\t${description}`;
     });
   });
 }
