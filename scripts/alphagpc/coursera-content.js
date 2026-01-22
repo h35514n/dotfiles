@@ -1,21 +1,31 @@
 const createIndex = () => {
-  const navPanel = document.querySelector('[aria-label="Collapse course outline"]').closest(".cds-grid-item");
+  const navPanel = document.querySelector('[aria-label="Collapse course outline"]').closest("[data-testid=left-nav]");
   const navItems = [...navPanel.querySelectorAll(".outline-single-item-content-wrapper")].map(e => e.querySelectorAll("div")[1]);
 
   // create a map of lesson titles to sequence numbers
   const sequenceNumToItem = Array.from(navItems)
     .filter((e) => /video/i.test(e.childNodes[1].textContent))
     .map((e) => e.childNodes[0].textContent)
-    .map((e, i) => [e, (i + 1).toString().padStart(2, "0")]);
+    .map((e, i) => [e, String(i + 1).padStart(2, "0")]);
   return new Map(sequenceNumToItem);
 };
 
 function generateDownloadCommand(e) {
   const titleIndex = createIndex();
+  // NOTE: may vary by course
+  // const WEEKNUM = document
+  //       .querySelector('[data-current-item=true]')
+  //       .closest('.cds-AccordionRoot-container')
+  //       .querySelector('.cds-AccordionHeader-labelGroup div')
+  //       .textContent
+  //       .split(" ")
+  //       .at(1)
+  //       .padStart(2, "0");
+
   const WEEKNUM = document
         .querySelector('[data-current-item=true]')
         .closest('.cds-AccordionRoot-container')
-        .querySelector('.cds-AccordionHeader-labelGroup div')
+        .querySelector('.outline-single-item-content-wrapper div:nth-of-type(2) div')
         .textContent
         .split(" ")
         .at(1)
@@ -100,6 +110,7 @@ function handleClick(e) {
   setTimeout(async () => {
     try {
       DEBUG && console.log("DOM has settled after expanding lessons.");
+      toggleDownloads()
 
       const clipboardText = await navigator.clipboard.readText();
       const command = generateDownloadCommand(e);
