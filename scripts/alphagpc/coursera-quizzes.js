@@ -48,6 +48,11 @@ function formatQuestionToOrg(questionBlock) {
  * @returns {string}
  */
 function convertParagraphToOrg(paraEl) {
+  if (paraEl.dataset?.pendo == "math-block") {
+    const math = paraEl.querySelector('math annotation').textContent.trim();
+    return `\$${math}\$`;
+  }
+
   const spans = Array.from(paraEl.children)
   const lines = spans.map((span) => {
     if (span.dataset?.pendo == "math-block"){
