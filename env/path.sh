@@ -26,7 +26,10 @@ PATH+=":${HOMEBREW_PREFIX}/opt/gnutls/libexec/gnubin"
 PATH+=":${HOMEBREW_PREFIX}/opt/grep/libexec/gnubin"
 PATH+=":${HOMEBREW_PREFIX}/opt/make/libexec/gnubin"
 PATH+=":${HOMEBREW_PREFIX}/opt/rg/bin"
+PATH+=":${HOMEBREW_PREFIX}/opt/trash/bin"
 PATH+=":${HOMEBREW_PREFIX}/share/git-core/contrib/diff-highlight"
+
+# -------------------
 PATH+=":${HOMEBREW_PREFIX}/bin"
 PATH+=":${HOMEBREW_PREFIX}/sbin"
 
