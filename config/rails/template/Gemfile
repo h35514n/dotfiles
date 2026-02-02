@@ -1,7 +1,7 @@
 group :development do
   gem "better_errors" # (https://github.com/BetterErrors/better_errors)
   gem "binding_of_caller"
-  gem "bundler-gtags", github: "damphessian/bundler-gtags" # (https://github.com/kayhide/bundler-gtags)
+  gem "bundler-gtags", github: "h35514n/bundler-gtags" # (https://github.com/kayhide/bundler-gtags)
   gem "dockerfile-rails", ">= 1.2"
   gem "letter_opener"
   gem "rufo" # autoformatting (https://github.com/ruby-formatter/rufo)

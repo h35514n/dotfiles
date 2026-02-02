@@ -10,7 +10,7 @@ Installation
    git clone \
        --recurse-submodules \
        --jobs=$(( $(sysctl -n hw.ncpu) - 1 )) \
-       https://github.com/damphessian/dotfiles \
+       https://github.com/h35514n/dotfiles \
        ~/.dotfiles
    ```
 

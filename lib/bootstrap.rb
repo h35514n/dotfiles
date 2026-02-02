@@ -18,7 +18,7 @@ end
 
 def setup_writing(project)
   FileUtils.mkdir_p(File.expand_path("~/Writing/#{project}"))
-  execho("git clone --recursive -j2 https://github.com/damphessian/#{project}.git ~/Writing/#{project}")
+  execho("git clone --recursive -j2 https://github.com/h35514n/#{project}.git ~/Writing/#{project}")
 end
 
 def configure(group_name)

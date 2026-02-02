@@ -20,7 +20,7 @@
 	update = rebase
 [submodule "share/pd"]
 	path = share/pd
-	url = https://github.com/inertialgradient/pd.git
+	url = https://github.com/h35514n/pd.git
 	branch = master
 	update = rebase
 [submodule "share/tmux/tpm"]
@@ -65,7 +65,7 @@
 	update = rebase
 [submodule "codespaces"]
 	path = codespaces
-	url = https://github.com/inertialgradient/codespaces.git
+	url = https://github.com/h35514n/codespaces.git
 [submodule "share/tmux/tmux-urlview"]
 	path = share/tmux/tmux-urlview
 	url = https://github.com/tmux-plugins/tmux-urlview

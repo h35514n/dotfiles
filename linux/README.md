@@ -26,7 +26,7 @@ bash -c "$(curl -L https://raw.githubusercontent.com/RedBearAK/toshy/main/script
 
 echo ------- vim ---------
 sudo apt-get install libx11-dev libxt-dev libxpm-dev libgtk2.0-dev
-brew tap damphessian/vim
+brew tap h35514n/vim
 # copy formula to tap directory
 # brew install --build-from-source [TAP DIRECTORY]
 
