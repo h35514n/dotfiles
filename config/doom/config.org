@@ -3209,7 +3209,7 @@ Bind test-running keybindings.
       :map python-mode-map
       :localleader
       :prefix ("t" . "pytest")
-      :desc "single"      :n "t" #'python-pytest-function-dwim
+      :desc "single"      :n "t" #'python-pytest-run-def-or-class-at-point-dwim
       :desc "all"         :n "a" #'python-pytest
       :desc "buffer"      :n "b" #'python-pytest-file-dwim
       :desc "file"        :n "f" #'python-pytest-file
