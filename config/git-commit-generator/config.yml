@@ -30,3 +30,9 @@ providers:
     model: "llama-3.2-3b-instruct"
     api_key_env: "LMSTUDIO_API_KEY"
     protocol: "chat"
+
+  air_qwen:
+    base_url: "http://jmr-air.local:1234/v1"
+    model: "qwen3.5-0.8b"
+    api_key_env: "LMSTUDIO_API_KEY"
+    protocol: "chat"
