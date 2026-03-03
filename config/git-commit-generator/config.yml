@@ -33,6 +33,6 @@ providers:
 
   air_qwen:
     base_url: "http://jmr-air.local:1234/v1"
-    model: "qwen3.5-0.8b"
+    model: "qwen3.5-2b"
     api_key_env: "LMSTUDIO_API_KEY"
     protocol: "chat"
