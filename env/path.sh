@@ -49,10 +49,6 @@ PATH+=":/snap/bin"
 
 export PATH
 
-# SDKMAN binaries (see xdg.apps.sh)
-[[ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]] && \
-  . "${SDKMAN_DIR}/bin/sdkman-init.sh"
-
 if [[ -d "${HOMEBREW_PREFIX}/opt" ]]; then
   for mandir in ${HOMEBREW_PREFIX}/opt/*/libexec/gnuman; do
     export MANPATH="$mandir:$MANPATH"
