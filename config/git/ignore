@@ -1,5 +1,5 @@
-### Emacs ###
 # -*- mode: gitignore; -*-
+### Emacs ###
 *~
 \#*\#
 /.emacs.desktop
@@ -40,7 +40,6 @@ flycheck_*.el
 /network-security.data
 
 ### macOS ###
-
 .DS_Store
 .AppleDouble
 .LSOverride
@@ -67,7 +66,6 @@ Temporary Items
 .apdisk
 
 ### Vim ###
-
 # Swap
 [._]*.s[a-v][a-z]
 !*.svg  # comment out if you don't need vector files
@@ -87,11 +85,13 @@ tags
 # Persistent undo
 [._]*.un~
 
-### tag files
-
+### Tag Files ###
 TAGS
 CTAGS
 GPATH
 GRTAGS
 GTAGS
 .envrc
+
+### Local Settings ###
+**/settings.local.json
