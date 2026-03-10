@@ -7,8 +7,8 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "features": {
-    "edit_prediction_provider": "codestral"
+  "edit_predictions": {
+    "provider": "codestral"
   },
   "minimap": {
     "show": "never"
