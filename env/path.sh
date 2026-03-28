@@ -35,6 +35,7 @@ PATH+=":${HOMEBREW_PREFIX}/sbin"
 
 PATH+=":${HOME}/.local/bin"
 PATH+=":${LMSTUDIO_HOME}/bin"
+PATH+=":${ANDROID_SDK_ROOT}/platform-tools"
 PATH+=":/usr/local/sbin"
 PATH+=":/usr/local/bin"
 PATH+=":/usr/sbin"
@@ -43,10 +44,6 @@ PATH+=":/sbin"
 PATH+=":/bin"
 PATH+=":/usr/local/texlive/current/bin/universal-darwin"
 
-# PATH+=":/usr/local/texlive/current/bin/x86_64-linux"
-# PATH+=":/usr/local/cuda/bin"
-# PATH+=":/snap/bin"
-
 export PATH
 
 if [[ -d "${HOMEBREW_PREFIX}/opt" ]]; then
@@ -54,17 +51,3 @@ if [[ -d "${HOMEBREW_PREFIX}/opt" ]]; then
     export MANPATH="$mandir:$MANPATH"
   done
 fi
-
-# TEMP: Let's see what breaks
-# PATH+=":./node_modules/.bin"
-# PATH+=":${HOMEBREW_PREFIX}/opt/${OPENSSL:-openssl@1.1}/bin"
-# PATH+=":${HOMEBREW_PREFIX}/opt/libpq/bin"
-# PATH+=":${HOME}/.docker/bin"
-#
-# Prefer BSD uname, becuase it reports m1 arch as 'arm'
-# GNU uname reports it as 'arm64', which breaks some build scripts
-# if [[ -d "${HOMEBREW_PREFIX}/bin" ]]; then
-#   ln -sf /usr/bin/uname "${HOMEBREW_PREFIX}/bin/uname"
-# fi
-
-# eval "$(brew shellenv)"
