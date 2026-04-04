@@ -7,9 +7,15 @@ providers:
     api_key_env: "OPENAI_API_KEY_GIT"
     protocol: "responses"
 
-  mini_qwen3:
+  qwen3-coder:
     base_url: "http://localhost:11434/v1"
     model: "qwen3-coder:480b-cloud"
+    api_key_env: "OLLAMA_API_KEY"
+    protocol: "responses"
+
+  gpt-oss:
+    base_url: "http://localhost:11434/v1"
+    model: "gpt-oss:120b-cloud"
     api_key_env: "OLLAMA_API_KEY"
     protocol: "responses"
 
