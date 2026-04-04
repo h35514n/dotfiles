@@ -76,7 +76,6 @@ alias -g C='| pbcopy'       # Copy output to clipboard
 alias -g P='| less'         # Pipe to pager
 
 # 2.4 Highlighting and XDG Compliance
-alias cat='bat'             # Syntax-highlighted cat alternative
 alias wget="wget --hsts-file=${XDG_CACHE_HOME}/wget/history"  # Use XDG cache for wget history
 alias bash="bash --init-file ${XDG_CONFIG_HOME}/bash/bashrc"  # Load XDG-compliant bashrc
 
