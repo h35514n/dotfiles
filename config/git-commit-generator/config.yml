@@ -8,7 +8,7 @@ providers:
     protocol: "responses"
 
   mini_qwen3:
-    base_url: "http://jmr-mini.local:11434/v1"
+    base_url: "http://localhost:11434/v1"
     model: "qwen3-coder:480b-cloud"
     api_key_env: "OLLAMA_API_KEY"
     protocol: "responses"
