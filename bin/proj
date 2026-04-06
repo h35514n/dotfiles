@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-~/.dotfiles/scripts/emacs-open-project.sh "${PWD}"
