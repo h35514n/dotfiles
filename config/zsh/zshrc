@@ -485,8 +485,8 @@ precmd_functions+=(set_title)
 
 # shellcheck disable=SC2206
 fpath=(
-  ${BREW_PREFIX}/share/zsh/site-functions
-  ${BREW_PREFIX}/share/zsh-completions
+  ${HOMEBREW_PREFIX}/share/zsh/site-functions
+  ${HOMEBREW_PREFIX}/share/zsh-completions
   ${ZDOTDIR}/completions
   ${fpath}
 )
