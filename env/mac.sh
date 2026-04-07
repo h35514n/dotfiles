@@ -1,1 +1,1 @@
-export ICLOUD_DRIVE=~/Library/Mobile\ Documents/com\~apple\~CloudDocs
+export ICLOUD_DRIVE="${HOME}/Library/Mobile Documents"
