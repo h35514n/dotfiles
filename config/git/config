@@ -52,7 +52,7 @@
 
 [interactive]
 	singlekey  = true
-	diffFilter  = delta --color-only
+	diffFilter = delta --color-only
 
 [log]
 	date = iso
@@ -75,8 +75,7 @@
 	reflog = delta
 
 [delta]
-	plus-style   = "syntax #012800"
-	minus-style  = "syntax #340001"
+	decorations  = true
 	navigate     = true
 	line-numbers = true
 	side-by-side = true
