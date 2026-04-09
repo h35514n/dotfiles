@@ -354,3 +354,4 @@ highlight CursorLineNr guibg=NONE ctermbg=NONE
 highlight ColorColumn  guibg=NONE ctermbg=NONE
 highlight CursorColumn guibg=NONE ctermbg=NONE
 highlight Comment      gui=italic cterm=italic
+highlight Folded       gui=italic cterm=italic
