@@ -5,7 +5,7 @@ export FZF_DEFAULT_OPTS="
   --no-multi
   --exact
   --tiebreak=index
-  --color='bg:#1d1e20,bg+:#1d1e20,preview-bg:#1d1e20,border:#1d1e20'
+  --color='bg:-1,bg+:-1,fg+:-1,gutter:0,preview-bg:-1,border:#1d1e20'
   --bind='ctrl-f:preview-down'
   --bind='ctrl-b:preview-up'
 "
