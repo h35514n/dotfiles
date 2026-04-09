@@ -1,0 +1,9 @@
+theme = light:iTerm2 Solarized Light,dark:One Double Dark
+font-family = Source Code Pro Ligaturized
+font-size = 20
+window-padding-x = 10
+window-padding-y = 10
+window-inherit-working-directory = true
+scrollback-limit = 200000
+shell-integration = detect
+link-url = true
