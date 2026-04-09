@@ -73,13 +73,18 @@ if has('termguicolors')
 endif
 
 function! SetBackgroundFromSystem() abort
-  if has('macunix')
-    let l:mode = system("defaults read -g AppleInterfaceStyle 2>/dev/null")
-    if v:shell_error == 0 && l:mode =~? 'Dark'
-      set background=dark
-    else
-      set background=light
-    endif
+  if !has('macunix')
+    return
+  endif
+
+  let l:mode = system("defaults read -g AppleInterfaceStyle 2>/dev/null")
+  let l:is_dark_system = (v:shell_error == 0 && l:mode =~? 'Dark')
+  let l:is_visor = exists('$ITERM_PROFILE') && $ITERM_PROFILE ==# 'Visor'
+
+  if l:is_dark_system || l:is_visor
+    set background=dark
+  else
+    set background=light
   endif
 endfunction
 
@@ -443,7 +448,7 @@ let g:indentLine_enabled = 0
 let g:used_javascript_libs = 'jquery,underscore,react,flux,requirejs'
 
 let g:lightline = {
-\   'colorscheme': 'one',
+\   'colorscheme': 'solarized',
 \   'active': {
 \     'left': [
 \       [ 'mode', 'paste' ],
