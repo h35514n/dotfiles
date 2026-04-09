@@ -65,10 +65,13 @@
 	update = rebase
 [submodule "codespaces"]
 	path = codespaces
+	branch = master
 	url = https://github.com/h35514n/codespaces.git
 [submodule "share/tmux/tmux-urlview"]
 	path = share/tmux/tmux-urlview
+	branch = master
 	url = https://github.com/tmux-plugins/tmux-urlview
 [submodule "share/zsh/zsh-autosuggestions"]
 	path = share/zsh/zsh-autosuggestions
+	branch = master
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
