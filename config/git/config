@@ -161,7 +161,7 @@
 
 	# submodules
 	subpull  = !git submodule foreach "git pull --rebase"
-	subtrack = !git submodule foreach "git checkout $(git config submodule.$name.branch)"
+	subtrack = !"git submodule foreach 'git checkout $(git config -f \"$toplevel/.gitmodules\" submodule.$name.branch)'"
 
 	# rebasing
 	r        = rebase --ignore-date
