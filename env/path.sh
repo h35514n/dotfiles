@@ -33,6 +33,7 @@ PATH+=":/usr/sbin"
 PATH+=":/usr/bin"
 PATH+=":/sbin"
 PATH+=":/bin"
+PATH+=":/Library/TeX/texbin"
 
 export PATH
 
