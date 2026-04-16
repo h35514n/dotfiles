@@ -494,7 +494,7 @@ fpath=(
 )
 
 autoload -Uz compinit
-compinit
+compinit -u
 
 zstyle ':completion:*' menu select
 zstyle ':completion:*:default' list-colors \
