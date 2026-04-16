@@ -57,7 +57,7 @@ setup :build_tools do
   brew_install :cmake
   brew_install :gcc
   brew_install :gettext
-  brew_install :icu4c, version: 77
+  brew_install :icu4c, version: 78
   brew_install :imagemagick
   brew_install :libffi
   brew_install :libgccjit
@@ -158,9 +158,10 @@ if machine_is?(:mac)
     cask_install :bettertouchtool
     cask_install :brave_browser
     cask_install :coderunner
-    cask_install :dash, version: 6
     cask_install :figma
     cask_install :finbar
+    cask_install :gcloud_cli
+    cask_install :ghostty
     cask_install :google_chrome
     cask_install :google_drive
     cask_install :iterm2
@@ -170,44 +171,30 @@ if machine_is?(:mac)
     cask_install :latexit
     cask_install :launchbar
     cask_install :launchcontrol
-    cask_install :launchpad_manager
     cask_install :licecap
     cask_install :linear_linear
     cask_install :maestral
     cask_install :name_mangler
-    cask_install :onedrive
+    cask_install :obsidian
     cask_install :pdfsam_basic
     cask_install :rectangle_pro
     cask_install :responsively
     cask_install :screenflow
     cask_install :shottr
     cask_install :skim
-    cask_install :subler
+    cask_install :telegram
     cask_install :tex_live_utility
     cask_install :transmission
     cask_install :vlc
+    cask_install :whatsapp
     cask_install :zoom
     cask_install :zotero
 
   end
 
-  setup :miscellaneous_cli_tools do
-
-    brew_install :defaultbrowser
-    brew_install :exercism
-    brew_install :llm
-
+  setup :miscellaneous_cli_tools, default: false do
     brew_tap "yt-dlp/taps"
     brew_install :yt_dlp
-  end
-
-  setup :quick_look_viewers do
-
-    cask_install :jupyter_notebook_viewer, options: :no_quarantine
-    cask_install :qlvideo, options: :no_quarantine
-    cask_install :suspicious_package, options: :no_quarantine
-
-    reset_quicklookd
   end
 end
 
