@@ -158,6 +158,7 @@ if machine_is?(:mac)
     cask_install :bettertouchtool
     cask_install :brave_browser
     cask_install :coderunner
+    cask_install :codex_app
     cask_install :figma
     cask_install :finbar
     cask_install :gcloud_cli
@@ -195,6 +196,8 @@ if machine_is?(:mac)
   setup :miscellaneous_cli_tools, default: false do
     brew_tap "yt-dlp/taps"
     brew_install :yt_dlp
+
+    cask_install :mactex_no_gui
   end
 end
 
