@@ -17,7 +17,7 @@ providers:
     base_url: "http://localhost:11434/v1"
     model: "gpt-oss:120b-cloud"
     api_key_env: "OLLAMA_API_KEY"
-    protocol: "responses"
+    protocol: "chat"
 
   # air_llama:
   #   base_url: "http://jmr-air.local:1234/v1"
