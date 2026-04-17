@@ -107,6 +107,7 @@ state
 /config/jj/
 /config/jupyter/migrated
 /config/karabiner/automatic_backups
+/config/linear/*
 /config/maestral/
 /config/mimeapps.list
 /config/mlflow/telemetry.json
