@@ -40,6 +40,7 @@ setup :core_cli_tools do
   brew_install :less
   brew_install :maestral
   brew_install :parallel
+  brew_install :pnpm
   brew_install :ripgrep
   brew_install :shfmt
   brew_install :tlrc
