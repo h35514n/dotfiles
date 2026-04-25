@@ -81,7 +81,7 @@
 	side-by-side = true
 
 [pretty]
-	brief    = "%Cred%h%Creset %C(bold)%<(50,trunc)%s%Creset%Cgreen%>>(11)%cd%Creset %C(yellow)%+D%Creset"
+	brief    = "%Cred%h%Creset %Cgreen%<(5)%cd%Creset %C(bold)%s%Creset %C(yellow)%+D%Creset"
 	select   = "%Cred%h%Creset %C(bold)%<(50,trunc)%s%Creset %Cgreen%>>(20)%D%Creset"
 	extended = "%Cred%h%Creset %C(bold)%<(100,trunc)%s%Creset %Cgreen%>>(40)%D%Creset"
 
@@ -189,7 +189,7 @@
 	dh       = diff --histogram
 
 	# log / history
-	h        = log --format=brief --abbrev-commit --graph
+	h        = log --format=brief --abbrev-commit --graph --date=format:'%m-%d'
 	hb       = hg HEAD --not origin/master
 	hdiff    = hg -U1
 	hfiles   = hg --format=medium --stat
