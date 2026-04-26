@@ -28,11 +28,6 @@
 	url = https://github.com/tmux-plugins/tpm
 	branch = master
 	update = rebase
-[submodule "share/tmux/tmux-yank"]
-	path = share/tmux/tmux-yank
-	url = https://github.com/tmux-plugins/tmux-yank.git
-	branch = master
-	update = rebase
 [submodule "share/tmux/tmux-prefix-highlight"]
 	path = share/tmux/tmux-prefix-highlight
 	url = https://github.com/tmux-plugins/tmux-prefix-highlight.git
@@ -43,20 +38,10 @@
 	url = https://github.com/tmux-plugins/tmux-open.git
 	branch = master
 	update = rebase
-[submodule "share/tmux/tmux-copycat"]
-	path = share/tmux/tmux-copycat
-	url = https://github.com/tmux-plugins/tmux-copycat
-	branch = master
-	update = rebase
 [submodule "share/doomemacs"]
 	path = share/doomemacs
 	branch = master
 	url = https://github.com/doomemacs/doomemacs
-	update = rebase
-[submodule "share/spacemacs"]
-	path = share/spacemacs
-	url = https://github.com/syl20bnr/spacemacs
-	branch = develop
 	update = rebase
 [submodule "config/emacs"]
 	path = config/emacs
