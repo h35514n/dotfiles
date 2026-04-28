@@ -127,6 +127,22 @@
 (use-package evil-iedit-state
   :after evil)
 
+(use-package avy
+  :after evil
+  :custom
+  (avy-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
+  (avy-style 'at-full))
+
+(use-package evil-snipe
+  ;; Extends s/S to 2-char sneak motions (like vim-sneak/leap).
+  ;; Disabled in modes where evil-collection claims s/S.
+  :after evil
+  :config
+  (evil-snipe-mode 1)
+  (evil-snipe-override-mode 1)
+  (add-to-list 'evil-snipe-disabled-modes 'magit-mode)
+  (add-to-list 'evil-snipe-disabled-modes 'Info-mode))
+
 (defun delete-window-dwim ()
   "Delete window; close tab if sole window in tab; close frame if multiple
 frames exist; otherwise kill Emacs."
@@ -164,6 +180,12 @@ frames exist; otherwise kill Emacs."
     "s e" '(evil-iedit-state/iedit-mode      :which-key "iedit")
     "s g" '(consult-ripgrep                  :which-key "ripgrep")
     "s s" '(consult-line                     :which-key "line in buffer")
+
+    ;; Jump (avy)
+    "j"   '(:ignore t           :which-key "jump")
+    "j j" '(avy-goto-char-2     :which-key "2-char")
+    "j l" '(avy-goto-line       :which-key "line")
+    "j w" '(avy-goto-word-1     :which-key "word")
 
     ;; Git
     "g"   '(:ignore t                :which-key "git")
