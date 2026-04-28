@@ -324,6 +324,12 @@ frames exist; otherwise kill Emacs."
   :after (embark consult)
   :hook (embark-collect-mode . consult-preview-at-point-mode))
 
+(use-package wgrep
+  ;; Edit consult-ripgrep results in-buffer, then apply across all files.
+  ;; In a grep results buffer: C-c C-p to enter edit mode, C-c C-c to apply.
+  :custom
+  (wgrep-auto-save-buffer t))
+
 ;;; ————————————————————————————
 ;;; Tabspaces — per-tab buffer isolation
 ;;; ————————————————————————————
