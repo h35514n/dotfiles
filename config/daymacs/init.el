@@ -170,6 +170,15 @@ frames exist; otherwise kill Emacs."
     ;; Top-level
     "SPC" '(consult-buffer      :which-key "buffers")
 
+    ;; Agent (claude-code-ide)
+    "a"   '(:ignore t                     :which-key "agent")
+    "a a" '(claude-code-ide               :which-key "start session")
+    "a c" '(claude-code-ide-continue      :which-key "continue")
+    "a r" '(claude-code-ide-resume        :which-key "resume")
+    "a t" '(claude-code-ide-toggle        :which-key "toggle window")
+    "a l" '(claude-code-ide-list-sessions :which-key "list sessions")
+    "a m" '(claude-code-ide-menu          :which-key "menu")
+
     ;; Files
     "f"   '(:ignore t           :which-key "file")
     "f f" '(consult-fd          :which-key "find file")
@@ -258,7 +267,8 @@ frames exist; otherwise kill Emacs."
    "s-C-g" #'magit-status
    "s-'"   #'eat
    "C-,"   #'embark-act
-   "C-;"   #'embark-dwim))
+   "C-;"   #'embark-dwim
+   "C-c C-'" #'claude-code-ide-menu))
 
 ;;; ————————————————————————————
 ;;; which-key — keybinding hints
@@ -411,6 +421,20 @@ frames exist; otherwise kill Emacs."
   :hook (eshell-load . eat-eshell-mode)
   :custom
   (eat-term-name "xterm-256color"))
+
+;;; ————————————————————————————
+;;; claude-code-ide — Claude Code CLI with MCP bridge
+;;; ————————————————————————————
+
+(use-package claude-code-ide
+  :straight (:type git :host github :repo "manzaltu/claude-code-ide.el")
+  :custom
+  (claude-code-ide-terminal-backend 'eat)
+  (claude-code-ide-window-side 'right)
+  (claude-code-ide-window-width 100)
+  (claude-code-ide-diagnostics-backend 'auto)
+  :config
+  (claude-code-ide-emacs-tools-setup))
 
 ;;; ————————————————————————————
 ;;; Org
