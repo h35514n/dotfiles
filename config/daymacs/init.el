@@ -249,7 +249,9 @@ frames exist; otherwise kill Emacs."
    "s-w"   #'delete-window-dwim
    "s-k"   #'kill-current-buffer
    "s-C-g" #'magit-status
-   "s-'"   #'eat))
+   "s-'"   #'eat
+   "C-,"   #'embark-act
+   "C-;"   #'embark-dwim))
 
 ;;; ————————————————————————————
 ;;; which-key — keybinding hints
@@ -304,6 +306,16 @@ frames exist; otherwise kill Emacs."
   ;; command key bindings, etc. Works with any completing-read UI.
   :config
   (marginalia-mode 1))
+
+(use-package embark
+  ;; "Act on this candidate" layer for any completing-read UI.
+  ;; C-, on any vertico candidate: open in other window, copy, delete, etc.
+  :after general)
+
+(use-package embark-consult
+  ;; Wires embark actions into consult previews and exports.
+  :after (embark consult)
+  :hook (embark-collect-mode . consult-preview-at-point-mode))
 
 ;;; ————————————————————————————
 ;;; Tabspaces — per-tab buffer isolation
