@@ -54,6 +54,10 @@
 (recentf-mode 1)
 (setq recentf-max-saved-items 200)
 
+;; Persist minibuffer history (commands, searches, consult inputs) across sessions.
+(savehist-mode 1)
+(setq history-length 300)
+
 ;; Relative line numbers match evil's jump-count workflow (e.g. 5j, 12k).
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode 1)
