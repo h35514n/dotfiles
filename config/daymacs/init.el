@@ -186,6 +186,14 @@
   (marginalia-mode 1))
 
 ;;; ————————————————————————————
+;;; Markdown
+;;; ————————————————————————————
+
+(use-package markdown-mode
+  :mode (("\\.md\\'" . gfm-mode)
+         ("\\.markdown\\'" . gfm-mode)))
+
+;;; ————————————————————————————
 ;;; Magit — git interface
 ;;; ————————————————————————————
 
