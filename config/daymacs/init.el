@@ -112,6 +112,18 @@
   (evil-collection-init))
 
 ;;; ————————————————————————————
+;;; Window helpers
+;;; ————————————————————————————
+
+(defun split-window-right-and-focus ()
+  (interactive)
+  (select-window (split-window-right)))
+
+(defun split-window-below-and-focus ()
+  (interactive)
+  (select-window (split-window-below)))
+
+;;; ————————————————————————————
 ;;; General — leader key bindings
 ;;; ————————————————————————————
 
@@ -171,7 +183,18 @@
     "p f" '(project-find-file          :which-key "find file")
     "p b" '(project-switch-to-buffer   :which-key "project buffer")
     "p k" '(project-kill-buffers       :which-key "kill buffers")
-    "p s" '(consult-ripgrep            :which-key "search"))
+    "p s" '(consult-ripgrep            :which-key "search")
+
+    ;; Windows
+    "w"   '(:ignore t                  :which-key "window")
+    "w v" '(split-window-right-and-focus :which-key "vertical split")
+    "w s" '(split-window-below-and-focus :which-key "horizontal split")
+    "w d" '(delete-window              :which-key "close")
+    "w m" '(delete-other-windows       :which-key "maximize")
+    "w h" '(windmove-left              :which-key "go left")
+    "w l" '(windmove-right             :which-key "go right")
+    "w j" '(windmove-down              :which-key "go down")
+    "w k" '(windmove-up                :which-key "go up"))
 
   (general-define-key
    "s-["   #'previous-buffer
