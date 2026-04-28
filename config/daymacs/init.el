@@ -423,7 +423,10 @@ frames exist; otherwise kill Emacs."
 (use-package magit
   :custom
   (magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
-  (magit-commit-show-diff t))
+  (magit-commit-show-diff nil)
+  :config
+  (with-eval-after-load 'magit-commit
+    (oset (get 'magit-commit 'transient--prefix) value nil)))
 
 (use-package git-timemachine
   :config
