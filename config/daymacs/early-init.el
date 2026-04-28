@@ -11,7 +11,9 @@
       '((tool-bar-lines . 0)
         (menu-bar-lines . 0)
         (vertical-scroll-bars . nil)
-        (horizontal-scroll-bars . nil)))
+        (horizontal-scroll-bars . nil)
+        (ns-transparent-titlebar . t)
+        (ns-appearance . dark)))
 
 ;; Skip the "Welcome to GNU Emacs" splash screen.
 (setq inhibit-startup-screen t)
