@@ -190,6 +190,39 @@
   (marginalia-mode 1))
 
 ;;; ————————————————————————————
+;;; Tabspaces — per-tab buffer isolation
+;;; ————————————————————————————
+
+(use-package tabspaces
+  :config
+  (tabspaces-mode 1)
+  :custom
+  (tabspaces-use-filtered-buffers-as-default t)
+  (tabspaces-default-tab "main")
+  (tabspaces-remove-to-default t)
+  (tabspaces-include-buffers '("*scratch*")))
+
+;; Filter consult-buffer to show only current-workspace buffers.
+;; Nested with-eval-after-load ensures both packages are fully loaded
+;; before consult--source-buffer is customized.
+(with-eval-after-load 'consult
+  (with-eval-after-load 'tabspaces
+    (consult-customize consult-source-buffer :hidden t :default nil)
+    (defvar consult--source-workspace
+      (list :name     "Workspace buffers"
+            :narrow   ?w
+            :history  'buffer-name-history
+            :category 'buffer
+            :state    #'consult--buffer-state
+            :default  t
+            :items    (lambda ()
+                        (consult--buffer-query
+                         :predicate #'tabspaces--local-buffer-p
+                         :sort 'visibility
+                         :as #'buffer-name))))
+    (add-to-list 'consult-buffer-sources 'consult--source-workspace)))
+
+;;; ————————————————————————————
 ;;; Markdown
 ;;; ————————————————————————————
 
