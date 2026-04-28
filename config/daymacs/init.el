@@ -169,6 +169,20 @@
   :config
   (vertico-mode 1))
 
+(use-package mini-frame
+  :config
+  (mini-frame-mode 1)
+  (set-face-attribute 'child-frame-border nil
+                      :background (face-attribute 'mode-line :background))
+  :custom
+  (mini-frame-show-parameters
+   (lambda ()
+     `((top    . 0.3)
+       (width  . 0.7)
+       (left   . 0.15)
+       (child-frame-border-width . 2)
+       (background-color . ,(face-attribute 'default :background))))))
+
 (use-package orderless
   ;; Matching style: space-separated components match in any order.
   ;; e.g. "foo bar" finds "bar-foo" and "foobar-baz".
