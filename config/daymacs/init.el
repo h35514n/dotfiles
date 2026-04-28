@@ -143,7 +143,11 @@
     ;; Buffers
     "b"   '(:ignore t           :which-key "buffer")
     "b d" '(kill-current-buffer :which-key "kill buffer")
-    "b b" '(consult-buffer      :which-key "switch buffer")))
+    "b b" '(consult-buffer      :which-key "switch buffer")
+
+    ;; Toggle
+    "t"   '(:ignore t           :which-key "toggle")
+    "t w" '(visual-fill-column-mode :which-key "word wrap")))
 
 ;;; ————————————————————————————
 ;;; which-key — keybinding hints
@@ -188,6 +192,12 @@
 ;;; ————————————————————————————
 ;;; Markdown
 ;;; ————————————————————————————
+
+(use-package visual-fill-column
+  :hook ((markdown-mode . visual-line-mode)
+         (markdown-mode . visual-fill-column-mode))
+  :custom
+  (visual-fill-column-width 80))
 
 (use-package markdown-mode
   :mode (("\\.md\\'" . gfm-mode)
