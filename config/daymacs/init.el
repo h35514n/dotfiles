@@ -226,6 +226,13 @@ frames exist; otherwise kill Emacs."
     "p k" '(project-kill-buffers       :which-key "kill buffers")
     "p s" '(consult-ripgrep            :which-key "search")
 
+    ;; LSP (eglot)
+    "l"   '(:ignore t                             :which-key "lsp")
+    "l r" '(eglot-rename                          :which-key "rename")
+    "l a" '(eglot-code-actions                    :which-key "actions")
+    "l f" '(eglot-format                          :which-key "format")
+    "l d" '(flymake-show-project-diagnostics      :which-key "diagnostics")
+
     ;; Windows
     "w"   '(:ignore t                  :which-key "window")
     "w v" '(evil-window-vsplit         :which-key "vertical split")
@@ -426,6 +433,48 @@ frames exist; otherwise kill Emacs."
   :config
   (require 'evil-org-agenda)
   (evil-org-agenda-set-keys))
+
+;;; ————————————————————————————
+;;; Eglot — language server protocol (built-in, Emacs 29+)
+;;; ————————————————————————————
+
+(use-package eglot
+  :straight nil
+  ;; Add per-language hooks as needed, e.g.:
+  ;;   (add-hook 'python-ts-mode-hook #'eglot-ensure)
+  :custom
+  (eglot-autoshutdown t))
+
+;;; ————————————————————————————
+;;; Corfu — in-buffer completion popup
+;;; ————————————————————————————
+
+(use-package corfu
+  ;; Popup at point for in-buffer completions. Pairs with eglot and cape.
+  :custom
+  (corfu-auto t)
+  (corfu-auto-delay 0.2)
+  (corfu-quit-no-match t)
+  :config
+  (global-corfu-mode 1))
+
+(use-package cape
+  ;; Extra completion-at-point sources: dabbrev, file paths, etc.
+  :config
+  (add-hook 'completion-at-point-functions #'cape-dabbrev)
+  (add-hook 'completion-at-point-functions #'cape-file))
+
+;;; ————————————————————————————
+;;; Tree-sitter — structural syntax (built-in, Emacs 29+)
+;;; ————————————————————————————
+
+(use-package treesit-auto
+  ;; Auto-installs tree-sitter grammars and remaps major modes to *-ts-mode.
+  :custom
+  (treesit-auto-install 'prompt)
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode 1))
 
 ;;; ————————————————————————————
 ;;; GC reset
