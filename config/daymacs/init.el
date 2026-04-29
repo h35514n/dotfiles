@@ -214,12 +214,14 @@ frames exist; otherwise kill Emacs."
   (when-let* ((win (dm/active-agent-window)))
     (select-window win)))
 
-(defun dm/agent-start ()
-  "Start the active AI agent."
+(defun dm/agent-open ()
+  "Show the active AI agent, or dismiss its window when already visible."
   (interactive)
-  (if (eq dm/active-agent 'claude)
-      (claude-code-ide)
-    (codex-ide)))
+  (if (dm/active-agent-window)
+      (dm/agent-toggle)
+    (if (eq dm/active-agent 'claude)
+        (claude-code-ide)
+      (codex-ide))))
 
 (defun dm/agent-toggle ()
   "Toggle the active AI agent's window."
@@ -263,10 +265,10 @@ Resize window: [_h_] narrower [_j_] shorter [_k_] taller [_l_] wider [_=_] balan
     "SPC" '(consult-buffer      :which-key "buffers")
 
     ;; Agent (claude-code-ide / codex-ide, toggled at runtime via SPC a A)
-    "a"   '(:ignore t                     :which-key "agent")
-    "a a" '(dm/agent-start           :which-key "start session")
-    "a A" '(dm/toggle-agent          :which-key "switch agent")
-    "a t" '(dm/agent-toggle          :which-key "toggle window")
+    "a"   '(:ignore t       :which-key "agent")
+    "a a" '(dm/agent-open   :which-key "show or dismiss")
+    "a A" '(dm/toggle-agent :which-key "switch agent")
+    "a t" '(dm/agent-toggle :which-key "toggle window")
     "a c" '(claude-code-ide-continue      :which-key "continue")
     "a r" '(claude-code-ide-resume        :which-key "resume")
     "a l" '(claude-code-ide-list-sessions :which-key "list sessions")
