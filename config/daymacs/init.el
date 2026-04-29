@@ -136,6 +136,7 @@
   (setq evil-want-C-u-scroll t)      ; C-u scrolls up (mirrors vim default)
   (setq evil-vsplit-window-right t)
   (setq evil-split-window-below  t)
+  (setq evil-echo-state nil)
   :config
   (evil-mode 1))
 
