@@ -129,6 +129,11 @@
   :config
   (evil-commentary-mode))
 
+(use-package evil-surround
+  :after evil
+  :config
+  (global-evil-surround-mode 1))
+
 (use-package evil-iedit-state
   :after evil)
 
