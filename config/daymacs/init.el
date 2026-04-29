@@ -711,8 +711,16 @@ process buffers below the selected window."
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode 1))
 
+(use-package hideshow
+  ;; Evil's z* folds need one of its supported backends.  Elisp does not always
+  ;; get `treesit-fold-mode', so keep a sexp-based fallback active there.
+  :straight nil
+  :hook ((emacs-lisp-mode . hs-minor-mode)
+         (lisp-interaction-mode . hs-minor-mode)))
+
 (use-package treesit-fold
-  ;; Structural folding for tree-sitter modes; integrates with Evil's z* folds.
+  ;; Structural folding for tree-sitter modes; integrates with Evil's z* folds
+  ;; when `treesit-fold-mode' is active in the buffer.
   :straight (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold")
   :after treesit-auto
   :config
