@@ -124,6 +124,11 @@
   :config
   (evil-collection-init))
 
+(use-package evil-commentary
+  :after evil
+  :config
+  (evil-commentary-mode))
+
 (use-package evil-iedit-state
   :after evil)
 
