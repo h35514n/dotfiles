@@ -15,6 +15,10 @@
   "Width in columns for left/right side windows."
   :type 'integer :group 'codex-ide)
 
+(defcustom codex-ide-focus-on-open t
+  "Whether to focus the Codex window when it opens."
+  :type 'boolean :group 'codex-ide)
+
 (defun codex-ide--working-directory ()
   (if-let* ((proj (project-current)))
       (project-root proj)
@@ -24,25 +28,53 @@
   (format "*codex[%s]*" (file-name-nondirectory (directory-file-name dir))))
 
 (defun codex-ide--show-window (buf)
-  (display-buffer-in-side-window
-   buf
-   `((side         . ,codex-ide-window-side)
-     (window-width . ,codex-ide-window-width)
-     (window-parameters . ((no-delete-other-windows . t))))))
+  (let ((window
+         (display-buffer-in-side-window
+          buf
+          `((side         . ,codex-ide-window-side)
+            (window-width . ,codex-ide-window-width)
+            (window-parameters . ((no-delete-other-windows . t)))))))
+    (when (and window codex-ide-focus-on-open)
+      (select-window window))
+    window))
+
+(defun codex-ide--live-session-p (buf)
+  "Return non-nil when BUF is a live Eat-backed Codex session."
+  (and (buffer-live-p buf)
+       (with-current-buffer buf
+         (and (derived-mode-p 'eat-mode)
+              (when-let* ((proc (get-buffer-process buf)))
+                (process-live-p proc))))))
+
+(defun codex-ide--start-session (buf name dir)
+  "Start a new Codex Eat session in BUF named NAME rooted at DIR."
+  (require 'eat)
+  (with-current-buffer buf
+    (cd dir)
+    (eat-mode)
+    (eat-exec buf name codex-ide-cli-path nil nil)))
 
 (defun codex-ide ()
   "Start or switch to a Codex session for the current project."
   (interactive)
   (let* ((dir (codex-ide--working-directory))
-         (name (codex-ide--buffer-name dir)))
-    (if (get-buffer name)
-        (codex-ide--show-window (get-buffer name))
+         (name (codex-ide--buffer-name dir))
+         (buf (get-buffer name)))
+    (cond
+     ((codex-ide--live-session-p buf)
+      (codex-ide--show-window buf))
+     (t
+      (when (buffer-live-p buf)
+        (kill-buffer buf))
       (let ((buf (get-buffer-create name)))
-        (with-current-buffer buf
-          (cd dir)
-          (eat-mode)
-          (eat-exec buf name codex-ide-cli-path nil nil))
-        (codex-ide--show-window buf)))))
+        (condition-case err
+            (progn
+              (codex-ide--start-session buf name dir)
+              (codex-ide--show-window buf))
+          (error
+           (when (buffer-live-p buf)
+             (kill-buffer buf))
+           (signal (car err) (cdr err)))))))))
 
 (defun codex-ide-toggle ()
   "Toggle visibility of the Codex window for the current project."
