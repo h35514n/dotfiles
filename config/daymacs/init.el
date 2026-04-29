@@ -52,7 +52,9 @@
 
 ;; Track recently visited files; used by consult-recent-file.
 (setq recentf-auto-cleanup "11:00pm")
-(recentf-mode 1)
+(let ((inhibit-message t)
+      (message-log-max nil))
+  (recentf-mode 1))
 (setq recentf-max-saved-items 200)
 
 ;; Persist minibuffer history (commands, searches, consult inputs) across sessions.
