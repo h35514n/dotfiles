@@ -528,7 +528,12 @@ Resize window: [_h_] narrower [_j_] shorter [_k_] taller [_l_] wider [_=_] balan
   (eat-kill-buffer-on-exit t)
   (eat-term-name "xterm-256color"))
 
-(load-file (expand-file-name "codex-ide.el" user-emacs-directory))
+;;; ————————————————————————————
+;;; codex-ide — OpenAI Codex CLI
+;;; ————————————————————————————
+
+(load (expand-file-name "codex-ide" user-emacs-directory) nil 'nomessage)
+
 
 ;;; ————————————————————————————
 ;;; claude-code-ide — Claude Code CLI with MCP bridge
