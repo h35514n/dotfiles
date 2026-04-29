@@ -506,6 +506,8 @@ Resize window: [_h_] narrower [_j_] shorter [_k_] taller [_l_] wider [_=_] balan
   (visual-fill-column-width 80))
 
 (use-package markdown-mode
+  :hook ((markdown-mode . outline-minor-mode)
+         (gfm-mode . outline-minor-mode))
   :mode (("\\.md\\'" . gfm-mode)
          ("\\.markdown\\'" . gfm-mode)))
 
