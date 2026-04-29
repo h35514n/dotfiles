@@ -385,7 +385,6 @@ Resize window: [_h_] narrower [_j_] shorter [_k_] taller [_l_] wider [_=_] balan
    "s-W"   #'tab-close
    "s-w"   #'dm/delete-window-dwim
    "s-k"   #'kill-current-buffer
-   "s-C-g" #'magit-status
    "s-'"   #'eat
    "C-,"   #'embark-act
    "C-;"   #'embark-dwim
