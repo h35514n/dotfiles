@@ -366,15 +366,16 @@ Resize window: [_h_] narrower [_j_] shorter [_k_] taller [_l_] wider [_=_] balan
 (use-package mini-frame
   :config
   (mini-frame-mode 1)
-  (set-face-attribute 'child-frame-border nil
-                      :background (face-attribute 'mode-line :background))
+  (set-face-attribute 'child-frame-border nil :background (face-attribute 'mode-line :foreground))
   :custom
   (mini-frame-show-parameters
    (lambda ()
      `((top    . 0.3)
        (width  . 0.7)
        (left   . 0.5)
-       (child-frame-border-width . 3)
+       (child-frame-border-width . 1)
+       (left-fringe . 25)
+       (right-fringe . 25)
        (background-color . ,(face-attribute 'default :background))))))
 
 (use-package orderless
