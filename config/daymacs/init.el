@@ -81,12 +81,26 @@
 ;; Empty scratch buffer on launch (inhibit-startup-screen is in early-init.el).
 (setq initial-scratch-message nil)
 
+(defconst dm/git-commit-filename-regexp
+  "/\\(?:\\(?:\\(?:COMMIT\\|NOTES\\|PULLREQ\\|MERGEREQ\\|TAG\\)_EDIT\\|MERGE_\\|\\)MSG\\|\\(?:BRANCH\\|EDIT\\)_DESCRIPTION\\)\\'"
+  "Regexp matching Git message files that `git-commit' edits.")
+
+(defun dm/git-commit-file-p (&optional file)
+  "Return non-nil when FILE or the current buffer is a Git message file."
+  (let ((path (or file buffer-file-name)))
+    (and path
+         (string-match-p dm/git-commit-filename-regexp path))))
+
 ;; Show project name in title bar, falling back to buffer name.
+(defun dm/frame-title-project-or-buffer ()
+  "Show project name in title bar, falling back to buffer name."
+  (if-let* ((proj (project-current)))
+      (project-name proj)
+    (buffer-name)))
+
 (setq frame-title-format
       '((:eval
-         (if-let* ((proj (project-current)))
-             (project-name proj)
-           (buffer-name)))))
+         (dm/frame-title-project-or-buffer))))
 
 ;;; ————————————————————————————
 ;;; Appearance
@@ -500,9 +514,59 @@ Resize window: [_h_] narrower [_j_] shorter [_k_] taller [_l_] wider [_=_] balan
 ;;; Git
 ;;; ————————————————————————————
 
+(defun dm/skip-treesit-auto-for-git-commit-file-a (fn &rest args)
+  "Skip `treesit-auto' remap setup for transient Git message buffers."
+  (unless (dm/git-commit-file-p)
+    (apply fn args)))
+
+(with-eval-after-load 'treesit-auto
+  ;; `treesit-auto' advises `set-auto-mode-0', which sits on the
+  ;; `git-commit-setup' path via `normal-mode'. Doom doesn't use this package,
+  ;; and the targeted tracer shows the hand-rolled config is spending most of
+  ;; its extra time in the unwrapped portion of `git-commit-setup'.
+  (advice-add #'treesit-auto--set-major-remap
+              :around #'dm/skip-treesit-auto-for-git-commit-file-a))
+
+(defun dm/magit-display-buffer-fn (buffer)
+  "Display Magit buffers with less window churn.
+
+This follows Doom's strategy closely enough for the status-to-commit
+transition: reuse the current window for most non-diff buffers and keep
+process buffers below the selected window."
+  (let ((buffer-mode (buffer-local-value 'major-mode buffer)))
+    (display-buffer
+     buffer
+     (cond
+      ((and (eq buffer-mode 'magit-status-mode)
+            (get-buffer-window buffer))
+       '(display-buffer-reuse-window))
+      ((or (bound-and-true-p git-commit-mode)
+           (eq buffer-mode 'magit-process-mode)
+           (eq major-mode 'magit-log-select-mode))
+       (let ((size (if (eq buffer-mode 'magit-process-mode) 0.35 0.7)))
+         `(display-buffer-below-selected
+           . ((window-height . ,(truncate (* (window-height) size)))))))
+      ((or (not (derived-mode-p 'magit-mode))
+           (and (eq major-mode 'magit-status-mode)
+                (memq buffer-mode '(magit-diff-mode magit-stash-mode)))
+           (not (memq buffer-mode
+                      '(magit-process-mode
+                        magit-revision-mode
+                        magit-stash-mode
+                        magit-status-mode))))
+       '(display-buffer-same-window))
+      (t
+       '(display-buffer-pop-up-window))))))
+
 (use-package magit
+  :commands (magit-status magit-blame)
+  :init
+  (setq magit-auto-revert-mode nil
+        magit-revision-insert-related-refs nil
+        magit-save-repository-buffers nil
+        magit-git-executable (or (executable-find "git") "git"))
   :custom
-  (magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1)
+  (magit-display-buffer-function #'dm/magit-display-buffer-fn)
   (magit-commit-show-diff nil)
   :config
   (with-eval-after-load 'magit-commit
