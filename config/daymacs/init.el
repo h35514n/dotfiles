@@ -711,6 +711,13 @@ process buffers below the selected window."
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode 1))
 
+(use-package treesit-fold
+  ;; Structural folding for tree-sitter modes; integrates with Evil's z* folds.
+  :straight (treesit-fold :type git :host github :repo "emacs-tree-sitter/treesit-fold")
+  :after treesit-auto
+  :config
+  (global-treesit-fold-mode 1))
+
 ;;; ————————————————————————————
 ;;; GC reset
 ;;; ————————————————————————————
