@@ -466,7 +466,7 @@ Resize window: [_h_] narrower [_j_] shorter [_k_] taller [_l_] wider [_=_] balan
          ("\\.markdown\\'" . gfm-mode)))
 
 ;;; ————————————————————————————
-;;; Magit — git interface
+;;; Git
 ;;; ————————————————————————————
 
 (use-package magit
@@ -578,6 +578,25 @@ Resize window: [_h_] narrower [_j_] shorter [_k_] taller [_l_] wider [_=_] balan
   :config
   (add-hook 'completion-at-point-functions #'cape-dabbrev)
   (add-hook 'completion-at-point-functions #'cape-file))
+
+;;; ————————————————————————————
+;;; Web editing
+;;; ————————————————————————————
+
+(use-package emmet-mode
+  ;; Abbreviation expansion for HTML, CSS, JSX, and TSX buffers.
+  :hook ((mhtml-mode   . emmet-mode)
+         (html-mode    . emmet-mode)
+         (html-ts-mode . emmet-mode)
+         (css-mode     . emmet-mode)
+         (css-ts-mode  . emmet-mode)
+         (js-ts-mode   . emmet-mode)
+         (tsx-ts-mode  . emmet-mode))
+  :custom
+  (emmet-move-cursor-between-quotes t)
+  :config
+  (dolist (mode '(js-ts-mode tsx-ts-mode))
+    (add-to-list 'emmet-jsx-major-modes mode)))
 
 ;;; ————————————————————————————
 ;;; Tree-sitter — structural syntax (built-in, Emacs 29+)
