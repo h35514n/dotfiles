@@ -311,6 +311,12 @@ Resize window: [_h_] narrower [_j_] shorter [_k_] taller [_l_] wider [_=_] balan
     "a r" '(claude-code-ide-resume        :which-key "resume")
     "a l" '(claude-code-ide-list-sessions :which-key "list sessions")
     "a m" '(claude-code-ide-menu          :which-key "menu")
+    ;; Buffers
+    "b"   '(:ignore t			:which-key "buffer")
+    "b b" '(consult-buffer		:which-key "switch buffer")
+    "b f" '(apheleia-format-buffer      :which-key "format")
+    "b d" '(kill-current-buffer		:which-key "kill buffer")
+
 
     ;; Files
     "f"   '(:ignore t           :which-key "file")
@@ -341,11 +347,6 @@ Resize window: [_h_] narrower [_j_] shorter [_k_] taller [_l_] wider [_=_] balan
     "o a" '(org-agenda          :which-key "agenda")
     "o c" '(org-capture         :which-key "capture")
 
-    ;; Buffers
-    "b"   '(:ignore t           :which-key "buffer")
-    "b d" '(kill-current-buffer :which-key "kill buffer")
-    "b b" '(consult-buffer      :which-key "switch buffer")
-
     ;; Toggle
     "t"   '(:ignore t           :which-key "toggle")
     "t w" '(visual-fill-column-mode :which-key "word wrap")
@@ -371,7 +372,6 @@ Resize window: [_h_] narrower [_j_] shorter [_k_] taller [_l_] wider [_=_] balan
     "l"   '(:ignore t                             :which-key "lsp")
     "l r" '(eglot-rename                          :which-key "rename")
     "l a" '(eglot-code-actions                    :which-key "actions")
-    "l f" '(eglot-format                          :which-key "format")
     "l d" '(flymake-show-project-diagnostics      :which-key "diagnostics")
 
     ;; Windows
@@ -684,6 +684,39 @@ process buffers below the selected window."
   ;;   (add-hook 'python-ts-mode-hook #'eglot-ensure)
   :custom
   (eglot-autoshutdown t))
+
+;;; ————————————————————————————
+;;; Apheleia — async code formatting
+;;; ————————————————————————————
+
+(use-package apheleia
+  :config
+  ;; Prefer ecosystem-standard formatters for common editing modes.
+  ;; These tools still need to be installed on PATH for Apheleia to run them.
+  (dolist (entry '((emacs-lisp-mode       . lisp-indent)
+                   (lisp-interaction-mode . lisp-indent)
+                   (sh-mode               . shfmt)
+                   (bash-ts-mode          . shfmt)
+                   (ruby-mode             . rubocop)
+                   (ruby-ts-mode          . rubocop)
+                   (python-mode           . (ruff-isort ruff))
+                   (python-ts-mode        . (ruff-isort ruff))
+                   (go-mode               . goimports)
+                   (go-ts-mode            . goimports)
+                   (rust-mode             . rustfmt)
+                   (rust-ts-mode          . rustfmt)
+                   (js-mode               . prettier-javascript)
+                   (js-ts-mode            . prettier-javascript)
+                   (jsx-ts-mode           . prettier)
+                   (typescript-mode       . prettier-typescript)
+                   (typescript-ts-mode    . prettier-typescript)
+                   (tsx-ts-mode           . prettier-typescript)
+                   (css-mode              . prettier-css)
+                   (css-ts-mode           . prettier-css)
+                   (json-mode             . prettier-json)
+                   (json-ts-mode          . prettier-json)))
+    (setf (alist-get (car entry) apheleia-mode-alist) (cdr entry)))
+  (apheleia-global-mode -1))
 
 ;;; ————————————————————————————
 ;;; Corfu — in-buffer completion popup
