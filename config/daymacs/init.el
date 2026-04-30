@@ -310,7 +310,7 @@ Resize window: [_h_] narrower [_j_] shorter [_k_] taller [_l_] wider [_=_] balan
     ;; Search
     "s"   '(:ignore t                        :which-key "search")
     "s e" '(evil-iedit-state/iedit-mode      :which-key "iedit")
-    "s g" '(consult-ripgrep                  :which-key "ripgrep")
+    "s p" '(consult-ripgrep                  :which-key "ripgrep")
     "s s" '(consult-line                     :which-key "line in buffer")
 
     ;; Jump (avy)
