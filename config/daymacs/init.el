@@ -102,6 +102,12 @@
       '((:eval
          (dm/frame-title-project-or-buffer))))
 
+(defun dm/open-daymacs-init-in-new-tab ()
+  "Open the Daymacs init.el file in a new tab."
+  (interactive)
+  (tab-new)
+  (find-file (expand-file-name "init.el" user-emacs-directory)))
+
 ;;; ————————————————————————————
 ;;; Appearance
 ;;; ————————————————————————————
@@ -305,6 +311,7 @@ Resize window: [_h_] narrower [_j_] shorter [_k_] taller [_l_] wider [_=_] balan
     ;; Files
     "f"   '(:ignore t           :which-key "file")
     "f f" '(consult-fd          :which-key "find file")
+    "f p" '(dm/open-daymacs-init-in-new-tab :which-key "emacs init")
     "f r" '(consult-recent-file :which-key "recent files")
 
     ;; Search
