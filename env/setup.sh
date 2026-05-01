@@ -18,16 +18,26 @@ case "$(uname -ps)" in
 esac
 
 num_cores() {
+  local cores=""
+
   if [[ "${MACHINE}" == "linux" ]]; then
-    nproc
+    cores="$(nproc 2>/dev/null)"
   elif command -v /usr/sbin/sysctl >/dev/null; then
-    /usr/sbin/sysctl -n hw.ncpu
-  else
-    echo 8
+    cores="$(/usr/sbin/sysctl -n hw.ncpu 2>/dev/null)"
   fi
+
+  if [[ ! "${cores}" =~ ^[0-9]+$ ]] || [[ "${cores}" -lt 1 ]]; then
+    cores=2
+  fi
+
+  echo "${cores}"
 }
 
-MACHINE_CORES=$(echo "$(num_cores) - 1" | bc)
+MACHINE_CORES="$(($(num_cores) - 1))"
+
+if [[ "${MACHINE_CORES}" -lt 1 ]]; then
+  MACHINE_CORES=1
+fi
 
 export MACHINE
 export MACHINE_CORES

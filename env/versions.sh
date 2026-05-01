@@ -6,7 +6,11 @@
 [[ -z "${MACHINE_CORES}" ]]   && echo "WARNING: MACHINE_CORES is not set in ${0}"
 
 export MISE_DIR="${XDG_DATA_HOME}/mise"
-export MISE_JOBS="${MACHINE_CORES}"
+if [[ "${MACHINE_CORES}" =~ ^[0-9]+$ ]] && [[ "${MACHINE_CORES}" -gt 0 ]]; then
+  export MISE_JOBS="${MACHINE_CORES}"
+else
+  export MISE_JOBS=1
+fi
 
 export MISE_GO_DEFAULT_PACKAGES_FILE="${XDG_CONFIG_HOME}/mise/default-libraries-golang"
 export MISE_NODE_DEFAULT_PACKAGES_FILE="${XDG_CONFIG_HOME}/mise/default-libraries-nodejs"
