@@ -1,4 +1,6 @@
 [tools]
+elixir = "1.19.5-otp-28"
+erlang = "28.5"
 go = "1.25.5"
 hugo = "0.152.2"
 java = "17.0.0"
