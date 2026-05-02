@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+#
+# race
+#
+# List all relevant reminders and calendar events for a morning/evening brief
+#
+
+set -e
+
+usage() {
+    grep '^#' < "$0" | tail -n +2 | cut -c 3-
+}
+
+if [ "$1" == "-h" ]; then
+  usage
+  exit 0
+fi
+
+
+rc=$(remindctl completed --plain | grep $(date +%F) | awk 'NF { found=1; print } END { if (!found) print "None" }')
+ro=$(remindctl overdue --plain | cut -f5,6 | sed 's/T.*\t/ /' | awk 'NF { found=1; print } END { if (!found) print "None" }')
+
+rt=$(remindctl today --plain | cut -f5,6 | sed 's/T.*\t/ /' | awk 'NF { found=1; print } END { if (!found) print "None" }')
+cu=$(ical today --output json | jq -r '.[] | "\(.start_date | fromdateiso8601 | strflocaltime("%Y-%m-%d %H:%M")) - \(.end_date | fromdateiso8601 | strflocaltime("%H:%M")) \(.title)"' || echo 'None')
+
+ru=$(remindctl upcoming --plain | cut -f5,6 | sed 's/T.*\t/ /' | grep -v $(date +%F) | awk 'NF { found=1; print } END { if (!found) print "None" }')
+cu=$(ical upcoming 3 --output json | jq -r '.[] | "\(.start_date | fromdateiso8601 | strflocaltime("%Y-%m-%d %H:%M")) - \(.end_date | fromdateiso8601 | strflocaltime("%H:%M")) \(.title)"' | grep -v $(date +%F) || echo 'None')
+
+cat << EOF
+Completed Today
+---------------
+$rc
+
+Overdue
+-------
+$ro
+
+Due Today
+--------
+$rt
+
+Upcoming
+--------
+$cu
+
+$ru
+EOF
