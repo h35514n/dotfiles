@@ -40,6 +40,8 @@ setup :brew_installs do
   brew_install :diffutils
   brew_install :direnv
   brew_install :docker
+  brew_install :docker_buildx
+  brew_install :docker_compose
   brew_install :editorconfig
   brew_install :elixir_ls
   brew_install :eza
