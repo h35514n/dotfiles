@@ -22,7 +22,7 @@ rc=$(remindctl completed --plain | grep $(date +%F) | awk 'NF { found=1; print }
 ro=$(remindctl overdue --plain | cut -f5,6 | sed 's/T.*\t/ /' | awk 'NF { found=1; print } END { if (!found) print "None" }')
 
 rt=$(remindctl today --plain | cut -f5,6 | sed 's/T.*\t/ /' | awk 'NF { found=1; print } END { if (!found) print "None" }')
-cu=$(ical today --output json | jq -r '.[] | "\(.start_date | fromdateiso8601 | strflocaltime("%Y-%m-%d %H:%M")) - \(.end_date | fromdateiso8601 | strflocaltime("%H:%M")) \(.title)"' || echo 'None')
+ct=$(ical today --output json | jq -r '.[] | "\(.start_date | fromdateiso8601 | strflocaltime("%Y-%m-%d %H:%M")) - \(.end_date | fromdateiso8601 | strflocaltime("%H:%M")) \(.title)"' || echo 'None')
 
 ru=$(remindctl upcoming --plain | cut -f5,6 | sed 's/T.*\t/ /' | grep -v $(date +%F) | awk 'NF { found=1; print } END { if (!found) print "None" }')
 cu=$(ical upcoming 3 --output json | jq -r '.[] | "\(.start_date | fromdateiso8601 | strflocaltime("%Y-%m-%d %H:%M")) - \(.end_date | fromdateiso8601 | strflocaltime("%H:%M")) \(.title)"' | grep -v $(date +%F) || echo 'None')
@@ -39,6 +39,10 @@ $ro
 Due Today
 --------
 $rt
+
+Scheduled Today
+---------------
+$ct
 
 Upcoming
 --------
