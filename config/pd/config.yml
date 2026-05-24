@@ -1,5 +1,6 @@
 debug: false
-skip_dirs:
+
+excludes:
   - ~/Applications
   - ~/Documents
   - ~/Library
@@ -7,3 +8,4 @@ skip_dirs:
   - ~/Music
   - ~/Pictures
   - ~/Zotero
+  - ~/.dotfiles/cache
