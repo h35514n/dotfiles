@@ -16,6 +16,7 @@ state
 /config/cursor/
 /config/docker/*
 /config/gcloud/
+/config/irb/irbrc_history
 /config/iterm2/
 /config/karabiner/automatic_backups/
 /config/mlflow/
