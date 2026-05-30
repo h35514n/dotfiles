@@ -14,6 +14,9 @@ else
   export MISE_JOBS=1
 fi
 
+# To avoid permissions issues
+export MISE_CACHE_DIR="${TMPDIR%/}/mise-cache"
+
 export MISE_GO_DEFAULT_PACKAGES_FILE="${XDG_CONFIG_HOME}/mise/default-libraries-golang"
 export MISE_NODE_DEFAULT_PACKAGES_FILE="${XDG_CONFIG_HOME}/mise/default-libraries-nodejs"
 export MISE_PERL_DEFAULT_PACKAGES_FILE="${XDG_CONFIG_HOME}/mise/default-libraries-perl"
