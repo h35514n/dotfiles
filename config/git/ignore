@@ -91,7 +91,6 @@ CTAGS
 GPATH
 GRTAGS
 GTAGS
-.envrc
 
 ### Local Settings ###
 **/settings.local.json
