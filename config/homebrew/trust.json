@@ -1,0 +1,13 @@
+{
+  "trustedformulae": [
+    "bro3886/tap/ical",
+    "d12frosted/emacs-plus/emacs-plus@31",
+    "romkatv/gitstatus/gitstatus",
+    "schpet/tap/linear",
+    "steipete/tap/imsg",
+    "steipete/tap/remindctl"
+  ],
+  "trustedtaps": [
+    "yt-dlp/taps"
+  ]
+}
