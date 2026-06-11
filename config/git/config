@@ -12,7 +12,7 @@
 
 [core]
 	autocrlf = input
-	editor   = git-edit
+	editor   = vim
 	excludesfile = ~/.dotfiles/config/git/ignore
 
 [color "diff"]
@@ -59,7 +59,6 @@
 
 [merge]
 	conflictstyle = diff3
-	ff            = no
 	tool          = vimdiff
 
 [mergetool]
