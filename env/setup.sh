@@ -73,6 +73,14 @@ source "${DOTFILES_DIR}/env/versions.sh"
 export HOMEBREW_NO_ENV_HINTS=1
 export HOMEBREW_NO_INSTALL_CLEANUP=1
 
+# Claude Code
+export CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN=1
+
+# Codex: ~/.codex/config.toml
+# [tui]
+# alternate_screen = "never"
+# raw_output_mode = true
+
 # GPG
 GPG_TTY=$(tty)
 export GPG_TTY
