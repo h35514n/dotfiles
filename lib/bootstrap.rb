@@ -191,9 +191,10 @@ end
 
 def ensure_locals_are_created
   execho("mkdir -p ${XDG_LOCALS_DIR}/bin")
+  execho("mkdir -p ${HOME}/Knowledge")
 
   unless File.exist?(ENVIRONMENT.fetch("ORG_HOME"))
-    execho("ln -s ${HOME}/Dropbox/org ${ORG_HOME}")
+    execho("ln -s ${HOME}/Knowledge/org ${ORG_HOME}")
   end
 
   unless File.exist?("/usr/local/bin/")

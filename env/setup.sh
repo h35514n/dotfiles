@@ -104,7 +104,7 @@ if [[ -n "${INSIDE_EMACS}" ]]; then
   export COVERAGE=false
   unset PRINT_COVERAGE
 fi
-export ORG_HOME="${HOME}/Org"
+export ORG_HOME="${HOME}/Knowledge/org"
 
 # Rails
 export RAILS_TEMPLATE="${XDG_CONFIG_HOME}/rails/template.rb"
