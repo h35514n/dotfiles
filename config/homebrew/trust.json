@@ -9,6 +9,7 @@
     "steipete/tap/remindctl"
   ],
   "trustedtaps": [
+    "d12frosted/emacs-plus",
     "yt-dlp/taps"
   ]
 }

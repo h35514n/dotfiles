@@ -148,7 +148,6 @@ end
 
 def install_launchagents
   return unless machine_is?(:mac)
-  return if File.exist?(File.expand_path("~/Library/LaunchAgents/#{filename}.plist"))
 
   FileUtils.mkdir_p(File.expand_path("~/Library/LaunchAgents/"))
   execho("cp ~/Dropbox/launch_agents/* ~/Library/LaunchAgents/")

@@ -3,10 +3,12 @@
 
 require_relative "../lib/bootstrap"
 
-setup :linux_base_requirements do
-  apt_install
-  flatpak_install
-  snap_install
+if machine_is?(:linux)
+  setup :linux_base_requirements do
+    apt_install
+    flatpak_install
+    snap_install
+  end
 end
 
 setup(:homebrew) { install_homebrew }
@@ -127,7 +129,7 @@ if machine_is?(:mac)
 
   setup :mac_tools do
 
-    brew install "steipete/tap/imsg"
+    brew_install "steipete/tap/imsg"
     brew_install "bro3886/tap/ical"
     brew_install "schpet/tap/linear"
     brew_install :colima
@@ -144,7 +146,6 @@ if machine_is?(:mac)
     cask_install :claude_code
     cask_install :coderunner
     cask_install :codex
-    cask_install :codex_app
     cask_install :copilot_cli
     cask_install :cursor
     cask_install :daisydisk
