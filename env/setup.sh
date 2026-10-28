@@ -85,6 +85,9 @@ export CLAUDE_CODE_DISABLE_ALTERNATE_SCREEN=1
 GPG_TTY=$(tty)
 export GPG_TTY
 
+# Git completion: don't offer every remote branch for checkout/switch
+export GIT_COMPLETION_CHECKOUT_NO_GUESS=1
+
 # FZF
 if [[ -z "${XDG_DATA_HOME}" ]]; then
   echo "WARNING: XDG_DATA_HOME is not set in ${0}"
