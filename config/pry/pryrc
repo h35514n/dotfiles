@@ -25,7 +25,7 @@ unless defined?(Rails) && Rails.env
   end
 end
 
-if defined?(Rails)
+if defined?(Rails) && !ENV["CONSOLE_FACTORIES"].nil?
   begin
     require "factory_bot_rails"
     include FactoryBot::Syntax::Methods
