@@ -50,6 +50,12 @@
 	clean  = git-media-clean %f
 	smudge = git-media-smudge %f
 
+[index]
+	# feature.manyFiles enables skipHash, which zeroes the index checksum.
+	# gitstatusd (libgit2) then never notices index changes and the prompt goes
+	# stale.
+	skipHash = false
+
 [init]
 	defaultBranch = master
 
