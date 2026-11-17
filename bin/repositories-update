@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+# Update the default branch of every git repo under a base directory in
+# parallel, then restore the original branch and any uncommitted changes.
+# Failures are written to a log file on the Desktop.
+#
+# Usage: repositories-update [base_dir] [max_jobs]
+
+BASE_DIR="${1:-$HOME/development/repositories}"
+MAX_JOBS="${2:-8}"
+LOG_FILE="$HOME/Desktop/repositories-update_$(date +%Y%m%d_%H%M%S).log"
+TMP_DIR=$(mktemp -d)
+trap 'rm -rf "$TMP_DIR"' EXIT
+
+# Fail instead of hanging on credential prompts in background jobs.
+export GIT_TERMINAL_PROMPT=0
+
+update_repo() {
+  local dir="$1" name out err
+  name=$(basename "$dir")
+  out="$TMP_DIR/$name.out"
+  err="$TMP_DIR/$name.err"
+
+  log() { echo "    $*" >>"$out"; }
+  fail() { echo "[$name] $*" >>"$err"; log "ERROR: $*"; }
+
+  # Run a git command; on failure, record the command and its output.
+  run() {
+    local output
+    if output=$(git "$@" 2>&1); then
+      return 0
+    fi
+    fail "git $* failed:"
+    printf '%s\n\n' "$output" | sed 's/^/    /' >>"$err"
+    return 1
+  }
+
+  echo "==> $name" >"$out"
+  cd "$dir" || { fail "cannot cd into $dir"; return; }
+
+  local original default stashed=0
+  original=$(git symbolic-ref --short -q HEAD)
+  if [ -z "$original" ]; then
+    fail "detached HEAD; skipped"
+    return
+  fi
+
+  default=$(git symbolic-ref --short -q refs/remotes/origin/HEAD 2>/dev/null | sed 's#^origin/##')
+  if [ -z "$default" ]; then
+    default=$(git remote show origin 2>/dev/null | sed -n 's/.*HEAD branch: //p')
+  fi
+  if [ -z "$default" ]; then
+    fail "cannot determine default branch; skipped"
+    return
+  fi
+
+  if [ -n "$(git status --porcelain)" ]; then
+    run stash push --include-untracked -m "repositories-update auto-stash" || { fail "skipped"; return; }
+    stashed=1
+    log "stashed changes"
+  fi
+
+  if [ "$original" != "$default" ]; then
+    run checkout "$default"
+  fi
+
+  if [ "$(git symbolic-ref --short -q HEAD)" = "$default" ]; then
+    run pull --rebase && log "pulled $default"
+  fi
+
+  if [ "$original" != "$default" ]; then
+    run checkout "$original" && log "restored $original"
+  fi
+
+  if [ "$stashed" -eq 1 ]; then
+    run stash pop && log "popped stash" || fail "changes remain in stash"
+  fi
+}
+
+for dir in "$BASE_DIR"/*/; do
+  [ -d "$dir/.git" ] || continue
+  while [ "$(jobs -rp | wc -l)" -ge "$MAX_JOBS" ]; do
+    sleep 0.1
+  done
+  update_repo "${dir%/}" &
+done
+wait
+
+cat "$TMP_DIR"/*.out 2>/dev/null
+
+if ls "$TMP_DIR"/*.err >/dev/null 2>&1; then
+  cat "$TMP_DIR"/*.err >"$LOG_FILE"
+  echo
+  echo "Errors occurred. See $LOG_FILE"
+  exit 1
+fi
+
+echo
+echo "All repos updated without errors."
