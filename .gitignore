@@ -21,6 +21,7 @@ state
 /config/karabiner/automatic_backups/
 /config/linear/
 /config/mlflow/
+/config/opencode/
 /config/stripe
 /config/zsh/.zcompdump
 /config/zsh/.zsh_history
