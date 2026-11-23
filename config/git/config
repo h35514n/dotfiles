@@ -120,10 +120,9 @@
 
 	# checkout
 	co       = checkout
-	co-      = !"git checkout -- $(git select-files) && git status --short"
-	cob      = checkout-branch
-	coba     = checkout-branch --all
-	coc      = checkout-commit
+	sb       = checkout-branch
+	sba      = checkout-branch --all
+	cc       = checkout-commit
 	cours    = checkout --ours
 	ctheirs  = checkout --theirs
 
@@ -181,9 +180,9 @@
 	rmc      = remove-commit
 
 	# resetting / reverting
+	rest  = !"git restore $(git select-files) && git status --short"
 	resf  = !sh -c 'git reset $(git select-files)'
-	colf  = !sh -c 'git checkout -- $(git select-files)'
-	revf  = !sh -c 'files=$(git select-files) && git reset ${files} >/dev/null && git checkout -- ${files}'
+	revf  = !sh -c 'files=$(git select-files) && git reset ${files} >/dev/null && git restore ${files}'
 
 	# merging
 	m        = merge
