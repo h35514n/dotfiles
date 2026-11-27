@@ -120,11 +120,12 @@
 
 	# checkout
 	co       = checkout
-	sb       = checkout-branch
-	sba      = checkout-branch --all
 	cc       = checkout-commit
 	cours    = checkout --ours
 	ctheirs  = checkout --theirs
+	sb       = switch-branch
+	sba      = switch-branch --all
+	sw       = switch-worktree
 
 	# sha selection
 	sha      = select-sha
