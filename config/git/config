@@ -163,6 +163,7 @@
 	p        = push
 	pf       = push --force-with-lease
 	pls      = pull --autostash
+	plr      = pull --recurse-submodules
 	po       = push origin
 	pu       = push -u
 	rem      = remote -v
